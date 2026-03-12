@@ -1,2 +1,2 @@
 # bash_sandbox
-Experimenting and tracking progress working with Linux Bash scripting and C programs
+Experimenting and tracking progress working with Linux Bash scripting and C & C++ programs
