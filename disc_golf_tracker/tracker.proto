@@ -1,0 +1,32 @@
+
+syntax = "proto3";
+
+package tracker;
+
+// Instructs the Go compiler where to put the generated backend code
+option go_package = "./pb";
+
+message Ping {
+  // Device identifier (we limit this to 16 chars in Nanopb options)
+  string device_id = 1;
+  
+  // GPS Coordinates
+  double lat = 2;
+  double lon = 3;
+  double alt = 4;        // Altitude in meters
+  
+  // Signal Quality
+  float hdop = 5;        // Horizontal Dilution of Precision
+  
+  // Physics / IMU Data (Used to calculate RPM and Wobble)
+  float accel_x = 6; 
+  float accel_y = 7;
+  float accel_z = 8; 
+  
+  // Time of capture (Unix epoch time)
+  int64 timestamp = 9;
+}
+
+message SyncBatch {
+  repeated Ping pings = 1;
+}
