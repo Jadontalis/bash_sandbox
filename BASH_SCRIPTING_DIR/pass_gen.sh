@@ -1,44 +1,47 @@
 #!/bin/bash
 
-echo "Welcome to my password generator!"
+# Greeting
+echo "Welcome to Jaden's password generator!"
 
-# ask length of pass
-echo "Please enter length of password: "
+# ask the user how long password should be
+echo "Please enter the length of the password:"
 
-read LENGTH_OF_PASS
+# read the input given by user and store in variable
+read  PASS_LENGTH
 
-# validate input
-
-if ! [[ $LENGTH_OF_PATH =~ ^[0-9]+$ ]]; then
-	echo "ERROR: PLEASE ENTER A VALID NUM.."
-	exit 1
+#Validate input
+if ! [[ $PASS_LENGTH =~ ^[0-9]+$ ]]; then
+    echo "ERROR: Please enter a valid number."
+    exit 1
 fi
 
-# create array for passing captured passes
-pass = ()
+#Creating an array named passwords to capture generated passwords 
+passwords=()
 
+# loop will create 3 passwords according to user as per length given by user and save them to array
 for p in $(seq 1 3);
-do 
-	pass+=($openssl rand -base64 48 | cut -c1-$LENGTH_OF_PASS )")
+do
+    passwords+=("$(openssl rand -base64 48 | cut -c1-$PASS_LENGTH )")
 done
 
-# display pass
-
-echo "Here are the generated passwords: "
+#Display generated passwords
+echo "Here are the generated passwords:"
 printf "%s\n" "${passwords[@]}"
 
-# ask to save to file
-echo "Do you want to save passwords to a file? (Y/n)"
-read choice
+# Ask user if they want to save the passwords to a file
+echo "Do you want to save these passwords to a file? (Y/n)"
+read  choice
+if [ "$choice" = "Y" ]; then
 
-if [ "$choice" = "Yy"]; then
-       for password in "${passwords[@]}"; do
-		echo "$password" | ccrypt -e -K "$PASSPHRASE" > "passwords.txt.cpt"
-	done
+      #Encrypt passwords before saving
+        for password in "${passwords[@]}"; do
+            # Encrypt each password using ccrypt and store in the file
+            echo "$password" | ccrypt -e -K "$PASSPHRASE" > "passwords.txt.cpt"
+        done
 
-	echo "Password saved securely to passwords.txt.cpt"
-elif ["$choice" = "n"]; then 
-	echo "ERROR: Password could not be saved, please try again."
+    echo "Passwords saved securely to passwords.txt.cpt"
+       #printf "%s\n" "${passwords[@]}" >>passwords.txt.cpt
+
+elif [ "$choice" = "n" ]; then
+     echo "Passwords not saved."
 fi
-
-
