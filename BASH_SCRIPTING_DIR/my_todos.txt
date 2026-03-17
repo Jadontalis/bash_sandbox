@@ -3,7 +3,4 @@ Finish coding and flashing hardware in C++ for project
 Finish PostGIS databasing and GO backend connection to frontend
 Keep playing around with Bash scripting
 Give the GF some love
-Make a Cup of tea
-stretch for 10 minutes
-Finish website work for Mellisa
-Drink tea
+Finish donation page (website)
